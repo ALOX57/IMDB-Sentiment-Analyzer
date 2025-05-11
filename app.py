@@ -1,5 +1,14 @@
 import streamlit as st
 import joblib
+import re
+
+def preprocess(text):
+    text = text.lower()
+    
+    # Join negation words with the word that follows
+    text = re.sub(r"\b(not|no|never|n't)\s+(\w+)", r"not_\2", text)
+
+    return text
 
 # Load the saved model and vectorizer
 model = joblib.load("sentiment_model.pkl")
@@ -14,8 +23,11 @@ if st.button("Analyze Sentiment"):
     if review.strip() == "":
         st.warning("Please enter a review.")
     else:
+        # Preprocess for negation handling
+        processed = preprocess(review)
+
         # Convert review to vector
-        review_vector = vectorizer.transform([review])
+        review_vector = vectorizer.transform([processed])
 
         # Predict probability
         prob = model.predict_proba(review_vector)[0][1]
