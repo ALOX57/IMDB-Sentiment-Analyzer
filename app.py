@@ -1,14 +1,7 @@
 import streamlit as st
 import joblib
-import re
+from utils import preprocess
 
-def preprocess(text):
-    text = text.lower()
-    
-    # Join negation words with the word that follows
-    text = re.sub(r"\b(not|no|never|n't)\s+(\w+)", r"not_\2", text)
-
-    return text
 
 # Load the saved model and vectorizer
 model = joblib.load("sentiment_model.pkl")

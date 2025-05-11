@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 import joblib
+from utils import preprocess
 
 # Load the dataset from CSV
 df = pd.read_csv("IMDB Dataset.csv")
@@ -9,7 +10,7 @@ df = pd.read_csv("IMDB Dataset.csv")
 # Convert 'positive'/'negative' into 1 / 10
 df["label"] = df["sentiment"].map({"positive": 1, "negative": 0})
 
-x = df["review"]
+x = df["review"].apply(preprocess)
 y = df["label"]
 
 # Convert text into TF-IDF vectors
