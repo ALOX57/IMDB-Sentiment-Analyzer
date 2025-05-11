@@ -19,3 +19,9 @@ x_vec = vectorizer.fit_transform(x)
 # Train a logistic regression model on the vectorized data
 model = LogisticRegression()
 model.fit(x_vec, y)
+
+# Save the trained model and vectorizer to files
+joblib.dump(model, "sentiment_model.pkl")
+joblib.dump(vectorizer, "vectorizer.pkl")
+
+print("Model and vectorizer saved.")
