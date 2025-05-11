@@ -15,3 +15,7 @@ y = df["label"]
 # Convert text into TF-IDF vectors
 vectorizer = TfidfVectorizer(stop_words="english", max_features=5000)
 x_vec = vectorizer.fit_transform(x)
+
+# Train a logistic regression model on the vectorized data
+model = LogisticRegression()
+model.fit(x_vec, y)
